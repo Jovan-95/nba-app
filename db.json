@@ -1,0 +1,145 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Admin User",
+      "email": "admin@nbaapp.com",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "name": "Regular User",
+      "email": "user@nbaapp.com",
+      "password": "user123",
+      "role": "user"
+    }
+  ],
+  "teams": [
+    {
+      "id": 1,
+      "name": "Los Angeles Lakers",
+      "abbreviation": "LAL",
+      "conference": "West",
+      "division": "Pacific",
+      "logo": "/images/lakers.png"
+    },
+    {
+      "id": 2,
+      "name": "Boston Celtics",
+      "abbreviation": "BOS",
+      "conference": "East",
+      "division": "Atlantic",
+      "logo": "/images/celtics.png"
+    }
+  ],
+  "players": [
+    {
+      "id": 1,
+      "name": "LeBron James",
+      "teamId": 1,
+      "position": "SF",
+      "height": "6'9\"",
+      "weight": "250 lbs",
+      "birthDate": "1984-12-30",
+      "stats": {
+        "points": 27.2,
+        "rebounds": 7.4,
+        "assists": 7.2
+      },
+      "photo": "/images/players/lebron.png"
+    },
+    {
+      "id": 2,
+      "name": "Jayson Tatum",
+      "teamId": 2,
+      "position": "SF",
+      "height": "6'8\"",
+      "weight": "210 lbs",
+      "birthDate": "1998-03-03",
+      "stats": {
+        "points": 26.4,
+        "rebounds": 8.0,
+        "assists": 4.5
+      },
+      "photo": "/images/players/tatum.png"
+    }
+  ],
+  "games": [
+    {
+      "id": 1,
+      "homeTeamId": 1,
+      "awayTeamId": 2,
+      "date": "2025-03-15T19:30:00Z",
+      "homeTeamScore": 112,
+      "awayTeamScore": 109
+    },
+    {
+      "id": 2,
+      "homeTeamId": 2,
+      "awayTeamId": 1,
+      "date": "2025-04-02T20:00:00Z",
+      "homeTeamScore": 101,
+      "awayTeamScore": 104
+    }
+  ],
+  "stats": [
+    {
+      "id": 1,
+      "playerId": 1,
+      "gameId": 1,
+      "points": 30,
+      "rebounds": 8,
+      "assists": 9
+    },
+    {
+      "id": 2,
+      "playerId": 2,
+      "gameId": 1,
+      "points": 28,
+      "rebounds": 7,
+      "assists": 4
+    }
+  ],
+  "favorites": [
+    {
+      "id": 1,
+      "userId": 2,
+      "type": "player",
+      "entityId": 1
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "type": "team",
+      "entityId": 2
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "userId": 2,
+      "entityType": "game",
+      "entityId": 1,
+      "content": "Odlična utakmica!",
+      "timestamp": "2025-03-15T21:00:00Z"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "entityType": "player",
+      "entityId": 1,
+      "content": "LeBron je GOAT.",
+      "timestamp": "2025-03-16T10:25:00Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": 1,
+      "userId": 2,
+      "message": "Upravo je dodata nova utakmica između Lakers i Celtics!",
+      "read": false,
+      "timestamp": "2025-03-14T08:00:00Z"
+    }
+  ]
+}
