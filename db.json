@@ -13,6 +13,13 @@
       "email": "user@nbaapp.com",
       "password": "user123",
       "role": "user"
+    },
+    {
+      "id": 1747823822352,
+      "username": "Jovan",
+      "email": "vuksanovicjovan@hotmail.com",
+      "password": "111111",
+      "role": "user"
     }
   ],
   "teams": [
@@ -59,7 +66,7 @@
       "birthDate": "1998-03-03",
       "stats": {
         "points": 26.4,
-        "rebounds": 8.0,
+        "rebounds": 8,
         "assists": 4.5
       },
       "photo": "/images/players/tatum.png"
