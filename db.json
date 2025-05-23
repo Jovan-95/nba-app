@@ -2,14 +2,14 @@
   "users": [
     {
       "id": 1,
-      "name": "Admin User",
+      "username": "Admin User",
       "email": "admin@nbaapp.com",
       "password": "admin123",
       "role": "admin"
     },
     {
       "id": 2,
-      "name": "Regular User",
+      "username": "Regular User",
       "email": "user@nbaapp.com",
       "password": "user123",
       "role": "user"
