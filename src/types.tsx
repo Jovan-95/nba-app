@@ -22,3 +22,13 @@ export type LoggedUserForm = {
   username: string;
   password: string;
 };
+
+// Team
+export type Team = {
+  id: number;
+  name: string;
+  abbreviation: string;
+  conference: string;
+  division: string;
+  logo: string;
+};

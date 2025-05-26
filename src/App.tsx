@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Suspense, lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Layout from "./components/Layout";
 
 const Register = lazy(() => import("./pages/Register"));
 const Login = lazy(() => import("./pages/Login"));
@@ -23,14 +24,17 @@ function App() {
           <Routes>
             <Route path="/" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/teams" element={<Teams />} />
-            <Route path="/players" element={<Players />} />
-            <Route path="/compare" element={<Compare />} />
-            <Route path="/schedule" element={<Schedule />} />
-            <Route path="/results" element={<Results />} />
-            <Route path="/favorites" element={<Favorites />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/notifications" element={<Notifications />} />
+
+            <Route element={<Layout />}>
+              <Route path="/teams" element={<Teams />} />
+              <Route path="/players" element={<Players />} />
+              <Route path="/compare" element={<Compare />} />
+              <Route path="/schedule" element={<Schedule />} />
+              <Route path="/results" element={<Results />} />
+              <Route path="/favorites" element={<Favorites />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/notifications" element={<Notifications />} />
+            </Route>
           </Routes>
         </Suspense>
       </BrowserRouter>

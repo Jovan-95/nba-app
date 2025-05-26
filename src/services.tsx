@@ -7,7 +7,7 @@
 // http://localhost:3001/comments
 // http://localhost:3001/notifications
 
-import type { User } from "./types";
+import type { Team, User } from "./types";
 
 //// Users
 // Post HTTP method
@@ -39,5 +39,20 @@ export async function getUsers() {
     return data;
   } catch (err) {
     console.log(err);
+  }
+}
+
+//// Teams
+// Get HTTP method
+export async function getTeams(): Promise<Team[]> {
+  try {
+    const res = await fetch("http://localhost:3001/teams");
+    if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
+
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.error("Error fetching teams:", err);
+    throw err; // 👈 obavezno prosledi grešku
   }
 }

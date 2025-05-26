@@ -1,0 +1,68 @@
+.teams-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .teams-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .teams-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    gap: 1rem;
+
+    .teams-search,
+    .teams-filter {
+      padding: 0.8rem 1rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      flex: 1;
+    }
+
+    .teams-filter {
+      max-width: 200px;
+    }
+  }
+
+  .teams-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .team-card {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    text-align: center;
+    transition: all 0.2s;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .team-logo {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 1rem;
+    }
+
+    .team-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .team-conference {
+      font-size: 0.95rem;
+      color: #555;
+    }
+  }
+}
