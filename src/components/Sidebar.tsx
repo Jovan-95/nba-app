@@ -1,6 +1,17 @@
-import { NavLink } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useDispatch } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { logoutUser } from "../redux/authSlice";
+import type { AppDispatch } from "../redux/store";
 
 function Sidebar() {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    dispatch(logoutUser());
+    navigate("/login");
+  }
   return (
     <aside className="sidebar">
       <h2 className="sidebar-logo">🏀 NBA</h2>
@@ -25,7 +36,7 @@ function Sidebar() {
           Compare
         </NavLink>
         <div style={{ marginTop: "100px" }}>
-          <button>Logout</button>
+          <button onClick={handleLogout}>Logout</button>
         </div>
       </nav>
     </aside>

@@ -2,6 +2,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Suspense, lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
+import PrivateRoute from "./components/PrivateRoute";
+import PublicRoute from "./components/PublicRoute";
 
 const Register = lazy(() => import("./pages/Register"));
 const Login = lazy(() => import("./pages/Login"));
@@ -22,18 +24,88 @@ function App() {
       <BrowserRouter>
         <Suspense fallback={<h2>Loading...</h2>}>
           <Routes>
-            <Route path="/" element={<Register />} />
-            <Route path="/login" element={<Login />} />
+            <Route
+              path="/"
+              element={
+                <PublicRoute>
+                  <Register />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <PublicRoute>
+                  <Login />
+                </PublicRoute>
+              }
+            />
 
             <Route element={<Layout />}>
-              <Route path="/teams" element={<Teams />} />
-              <Route path="/players" element={<Players />} />
-              <Route path="/compare" element={<Compare />} />
-              <Route path="/schedule" element={<Schedule />} />
-              <Route path="/results" element={<Results />} />
-              <Route path="/favorites" element={<Favorites />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="/notifications" element={<Notifications />} />
+              <Route
+                path="/teams"
+                element={
+                  <PrivateRoute>
+                    <Teams />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/players"
+                element={
+                  <PrivateRoute>
+                    <Players />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/compare"
+                element={
+                  <PrivateRoute>
+                    <Compare />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/schedule"
+                element={
+                  <PrivateRoute>
+                    <Schedule />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/results"
+                element={
+                  <PrivateRoute>
+                    <Results />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/favorites"
+                element={
+                  <PrivateRoute>
+                    <Favorites />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/admin"
+                element={
+                  <PrivateRoute>
+                    <Admin />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/notifications"
+                element={
+                  <PrivateRoute>
+                    <Notifications />
+                  </PrivateRoute>
+                }
+              />
             </Route>
           </Routes>
         </Suspense>

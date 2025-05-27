@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { User } from "../types"; // pretpostavka da imaš User type
 
@@ -18,8 +19,12 @@ const authSlice = createSlice({
       state.loggedInUser = action.payload;
       localStorage.setItem("loggedInUser", JSON.stringify(state.loggedInUser));
     },
+    logoutUser: (state) => {
+      state.loggedInUser = null;
+      localStorage.removeItem("loggedInUser");
+    },
   },
 });
 
-export const { addLoggedUser } = authSlice.actions;
+export const { addLoggedUser, logoutUser } = authSlice.actions;
 export default authSlice.reducer;

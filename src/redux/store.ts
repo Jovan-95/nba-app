@@ -7,3 +7,9 @@ const store = configureStore({
   },
 });
 export default store;
+
+// Tipiziranje state-a
+export type RootState = ReturnType<typeof store.getState>;
+
+// Tipiziranje dispatcha
+export type AppDispatch = typeof store.dispatch;
