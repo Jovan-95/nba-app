@@ -8,7 +8,7 @@ function Teams() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedFilter, setSelectedFilter] = useState<string>("");
 
-  // Getting users from services with reactQuery
+  // Getting teams from services with reactQuery
   const { data, isLoading, error } = useQuery({
     queryKey: ["teams"],
     queryFn: getTeams,

@@ -1,0 +1,74 @@
+.players-page {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  .players-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .players-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    .players-search,
+    .players-filter {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+  }
+
+  .players-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .player-card {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+
+    .player-photo {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+    }
+
+    .player-info {
+      .player-name {
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+
+      .player-team,
+      .player-position {
+        font-size: 0.95rem;
+        margin: 0.3rem 0;
+        color: #666;
+      }
+
+      .favorite-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+
+        &:hover {
+          color: gold;
+        }
+      }
+    }
+  }
+}

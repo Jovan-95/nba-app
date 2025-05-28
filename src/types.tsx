@@ -32,3 +32,21 @@ export type Team = {
   division: string;
   logo: string;
 };
+
+// Player
+export type Player = {
+  id: number;
+  name: string;
+  team: string;
+  teamId: number;
+  position: string;
+  height: string;
+  weight: string;
+  birthDate: string;
+  stats: {
+    points: number;
+    rebounds: number;
+    assists: number;
+  };
+  photo: string;
+};
