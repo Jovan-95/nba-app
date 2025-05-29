@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getPlayers, getTeams } from "../services";
 import { useState } from "react";
 import type { Player } from "../types";
+import { NavLink } from "react-router-dom";
 
 function Players() {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -70,12 +71,16 @@ function Players() {
         {/* Primer jednog igrača */}
         {filteredPlayers.map((player) => (
           <div key={player.id} className="player-card">
-            <img src="/images/lebron.png" className="player-photo" />
+            <img src={`${player.photo}`} className="player-photo" />
             <div className="player-info">
               <h3 className="player-name">{player.name}</h3>
               <p className="player-team">team</p>
               <p className="player-position">{player.position}</p>
               <button className="favorite-btn">⭐</button>
+
+              <NavLink to={`/players/${player.id}`}>
+                <button>More</button>
+              </NavLink>
             </div>
           </div>
         ))}

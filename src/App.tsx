@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
+import SinglePlayer from "./pages/SinglePlayer";
 
 const Register = lazy(() => import("./pages/Register"));
 const Login = lazy(() => import("./pages/Login"));
@@ -55,6 +56,15 @@ function App() {
                 element={
                   <PrivateRoute>
                     <Players />
+                  </PrivateRoute>
+                }
+              />
+              {/* Single page */}
+              <Route
+                path="/players/:id"
+                element={
+                  <PrivateRoute>
+                    <SinglePlayer />
                   </PrivateRoute>
                 }
               />
