@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getTeams } from "../services";
 import type { Team } from "../types";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 function Teams() {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -59,6 +60,9 @@ function Teams() {
               <p className="team-conference">{team.conference}</p>
               <p className="team-conference">{team.division}</p>
               <p className="team-conference">{team.abbreviation}</p>
+              <NavLink to={`/teams/${team.id}`}>
+                <button>More</button>
+              </NavLink>
             </div>
           </div>
         ))}

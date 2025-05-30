@@ -7,7 +7,8 @@ import type { Player } from "../types";
 function SinglePlayer() {
   const { id } = useParams();
   const navigate = useNavigate();
-  // Getting teams from services with reactQuery
+
+  // Getting players from services with reactQuery
   const {
     data: players,
     isLoading: playersLoading,

@@ -5,6 +5,7 @@ import Layout from "./components/Layout";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
 import SinglePlayer from "./pages/SinglePlayer";
+import SingleTeam from "./pages/SingleTeam";
 
 const Register = lazy(() => import("./pages/Register"));
 const Login = lazy(() => import("./pages/Login"));
@@ -51,6 +52,15 @@ function App() {
                   </PrivateRoute>
                 }
               />
+              {/* Single page */}
+              <Route
+                path="/teams/:id"
+                element={
+                  <PrivateRoute>
+                    <SingleTeam />
+                  </PrivateRoute>
+                }
+              />
               <Route
                 path="/players"
                 element={
@@ -68,6 +78,7 @@ function App() {
                   </PrivateRoute>
                 }
               />
+
               <Route
                 path="/compare"
                 element={

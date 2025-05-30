@@ -1,0 +1,58 @@
+.single-team {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  &__logo {
+    width: 120px;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  &__info {
+    h1 {
+      margin-bottom: 0.5rem;
+      font-size: 2rem;
+    }
+
+    p {
+      margin: 0.3rem 0;
+      font-size: 1rem;
+      color: #444;
+    }
+  }
+
+  &__players {
+    h2 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+  }
+
+  &__player-list {
+    list-style: none;
+    padding: 0;
+
+    .single-team__player {
+      padding: 0.5rem 1rem;
+      background-color: #f7f7f7;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      transition: background 0.3s;
+
+      &:hover {
+        background-color: #ececec;
+      }
+    }
+  }
+}
