@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useNavigate, useParams } from "react-router-dom";
-import { getTeams } from "../services";
+import { getPlayers, getTeams } from "../services";
 import { useQuery } from "@tanstack/react-query";
 
 function SingleTeam() {
@@ -17,13 +17,26 @@ function SingleTeam() {
     queryFn: getTeams,
   });
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>{error.message}</p>;
-  if (!teams) return <p>No data found.</p>;
+  //
+  const {
+    data: players,
+    isLoading: playersIsLoading,
+    error: playersError,
+  } = useQuery({
+    queryKey: ["players"],
+    queryFn: getPlayers,
+  });
 
+  if (isLoading || playersIsLoading) return <p>Loading...</p>;
+  if (error || playersError) return <p>{error.message}</p>;
+  if (!teams || !players) return <p>No data found.</p>;
+
+  // Find the team with ID
   const team = teams?.find((team) => String(team.id) === id);
-
   if (!team) return <p>Team not found.</p>;
+
+  const player = players?.find((p) => p.team === team.name);
+  if (!player) return <p>Player not found.</p>;
 
   function goBack() {
     navigate("/teams");
@@ -52,18 +65,22 @@ function SingleTeam() {
           <p>
             <strong>Division:</strong> {team.division}
           </p>
-          <button onClick={goBack}>Back</button>
         </div>
       </div>
 
-      {/* <div className="single-team__players">
-        <h2>Roster</h2>
+      <div className="single-team__players">
+        <h2>Best player:</h2>
         <ul className="single-team__player-list">
-          <li className="single-team__player">LeBron James - SF</li>
-          <li className="single-team__player">Anthony Davis - PF</li>
-          <li className="single-team__player">D’Angelo Russell - PG</li>
+          <li className="single-team__player">
+            <div>Name: {player.name}</div>
+            <div>Height: {player.height}</div>
+            <div>Weight: {player.weight}</div>
+            <div>Position: {player.position}</div>
+            <div>Birthday: {player.birthDate}</div>
+          </li>
+          <button onClick={goBack}>Back</button>
         </ul>
-      </div> */}
+      </div>
     </div>
   );
 }
