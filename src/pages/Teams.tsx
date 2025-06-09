@@ -1,13 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useQuery } from "@tanstack/react-query";
-import { getTeams } from "../services";
-import type { Team } from "../types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { addFavPlayer, addFavTeam, getTeams, getUsers } from "../services";
+import type { Team, User } from "../types";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import type { RootState } from "../redux/store";
 
 function Teams() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedFilter, setSelectedFilter] = useState<string>("");
+
+  const queryClient = useQueryClient();
 
   // Getting teams from services with reactQuery
   const { data, isLoading, error } = useQuery({
@@ -15,9 +19,42 @@ function Teams() {
     queryFn: getTeams,
   });
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>{error.message}</p>;
-  if (!data) return <p>No data found.</p>; // 👈 dodaj ovo
+  // Get users from services with reactQuery
+  const {
+    data: users,
+    isLoading: isLoadingUsers,
+    error: usersError,
+  } = useQuery({
+    queryKey: ["users"],
+    queryFn: getUsers,
+  });
+
+  // Patch userObj, add fav team
+  const { mutate: addFavTeamMutation } = useMutation({
+    mutationFn: async ({
+      userId,
+      updatedFavTeamsArr,
+    }: {
+      userId: number;
+      updatedFavTeamsArr: number[];
+    }) => await addFavTeam(userId, updatedFavTeamsArr),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+    },
+  });
+
+  // Find current logged user
+  const loggedUser = useSelector((state: RootState) => state.auth.loggedInUser);
+
+  if (!loggedUser) return <p>No logged user.</p>;
+  if (isLoading || isLoadingUsers) return <p>Loading...</p>;
+  if (error || usersError) return <p>{error.message}</p>;
+  if (!data || !users) return <p>No data found.</p>; // 👈 dodaj ovo
+
+  // Find current user on Backend
+  const currentUser = users.find(
+    (user: User) => Number(user.id) === Number(loggedUser.id)
+  );
 
   // Filter existing by search name
   const searchTeams = data.filter((team: Team) =>
@@ -28,6 +65,23 @@ function Teams() {
   const filteredTeams = searchTeams.filter((team: Team) =>
     selectedFilter ? team.conference === selectedFilter : true
   );
+
+  // Add team to fav
+  function handleAddToFav(team: Team) {
+    const updatedFavTeamsArr = [...currentUser.favoritesTeams, team.id];
+
+    // Check for duplicates
+    if (currentUser.favoritesTeams.includes(team.id)) {
+      alert("You already added this team to favorites!");
+      return;
+    }
+
+    addFavTeamMutation({
+      userId: currentUser.id,
+      updatedFavTeamsArr,
+    });
+    alert("Team added to favorites!");
+  }
 
   return (
     <div className="teams-page">
@@ -55,14 +109,22 @@ function Teams() {
         {filteredTeams.map((team: Team) => (
           <div key={team.id} className="team-card">
             {/* <img className="team-logo" /> */}
-            <div className="team-info">
+            <div className="team-info ">
               <h3 className="team-name">{team.name}</h3>
               <p className="team-conference">{team.conference}</p>
               <p className="team-conference">{team.division}</p>
               <p className="team-conference">{team.abbreviation}</p>
+
               <NavLink to={`/teams/${team.id}`}>
                 <button>More</button>
               </NavLink>
+
+              <button
+                onClick={() => handleAddToFav(team)}
+                className="favorite-btn"
+              >
+                ⭐
+              </button>
             </div>
           </div>
         ))}

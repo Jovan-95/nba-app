@@ -64,6 +64,8 @@ function Register() {
       email: userObj.email,
       password: userObj.password,
       role: "user",
+      favoritesPlayers: [],
+      favoritesTeams: [],
     };
 
     addUserMutation.mutate(newUser);

@@ -15,6 +15,8 @@ export type User = {
   password: string;
   id: number;
   role: "user" | "admin";
+  favoritesPlayers: number[]; // npr. [1, 7, 15]
+  favoritesTeams: number[];
 };
 
 // LoggedUserForm

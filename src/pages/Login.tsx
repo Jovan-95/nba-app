@@ -47,7 +47,7 @@ function Login() {
   }
 
   function goToRegister(): void {
-    navigate("/register");
+    navigate("/");
   }
 
   if (isLoading) return <p>Loading...</p>;

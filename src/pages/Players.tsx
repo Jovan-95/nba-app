@@ -1,15 +1,28 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useQuery } from "@tanstack/react-query";
-import { getPlayers, getTeams } from "../services";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { addFavPlayer, getPlayers, getTeams, getUsers } from "../services";
 import { useState } from "react";
-import type { Player } from "../types";
+import type { Player, User } from "../types";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Players() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedFilter, setSelectedFilter] = useState<string>("");
 
-  // Getting teams from services with reactQuery
+  const queryClient = useQueryClient();
+
+  // Get users from services with reactQuery
+  const {
+    data: users,
+    isLoading: isLoadingUsers,
+    error: usersError,
+  } = useQuery({
+    queryKey: ["users"],
+    queryFn: getUsers,
+  });
+
+  // Get teams from services with reactQuery
   const {
     data: teams,
     isLoading,
@@ -19,7 +32,7 @@ function Players() {
     queryFn: getTeams,
   });
 
-  // Getting teams from services with reactQuery
+  // Get teams from services with reactQuery
   const {
     data: players,
     isLoading: playersLoading,
@@ -29,9 +42,31 @@ function Players() {
     queryFn: getPlayers,
   });
 
-  if (isLoading || playersLoading) return <p>Loading...</p>;
-  if (error || playersError) return <p>{error.message}</p>;
-  if (!teams || !players) return <p>No data found.</p>;
+  // Patch userObj, add fav player
+  const { mutate: addFavPlayerMutation } = useMutation({
+    mutationFn: async ({
+      userId,
+      updatedFavPlayersArr,
+    }: {
+      userId: number;
+      updatedFavPlayersArr: number[];
+    }) => await addFavPlayer(userId, updatedFavPlayersArr),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+    },
+  });
+
+  // Find current logged user
+  const loggedUser = useSelector((state) => state.auth.loggedInUser);
+
+  if (isLoading || playersLoading || isLoadingUsers) return <p>Loading...</p>;
+  if (error || playersError || usersError) return <p>{error.message}</p>;
+  if (!teams || !players || !users) return <p>No data found.</p>;
+
+  // Find current user on Backend
+  const currentUser = users.find(
+    (user: User) => Number(user.id) === Number(loggedUser.id)
+  );
 
   // Filter existing by search name
   const searchPlayers = players.filter((player: Player) =>
@@ -42,6 +77,27 @@ function Players() {
   const filteredPlayers = searchPlayers.filter((player: Player) =>
     selectedFilter ? player.team === selectedFilter : true
   );
+
+  // Add to user favorites
+  function handleAddToFav(player: Player) {
+    // console.log("Player:", player);
+    // console.log("User", currentUser);
+    // console.log("Logged user", loggedUser);
+
+    const updatedFavPlayersArr = [...currentUser.favoritesPlayers, player.id];
+
+    // Check for duplicates
+    if (currentUser.favoritesPlayers.includes(player.id)) {
+      alert("You already added this player to favorites!");
+      return;
+    }
+
+    addFavPlayerMutation({
+      userId: currentUser.id,
+      updatedFavPlayersArr,
+    });
+    alert("Player added to favorites!");
+  }
 
   return (
     <div className="players-page">
@@ -76,7 +132,12 @@ function Players() {
               <h3 className="player-name">{player.name}</h3>
               <p className="player-team">team</p>
               <p className="player-position">{player.position}</p>
-              <button className="favorite-btn">⭐</button>
+              <button
+                onClick={() => handleAddToFav(player)}
+                className="favorite-btn"
+              >
+                ⭐
+              </button>
 
               <NavLink to={`/players/${player.id}`}>
                 <button>More</button>
