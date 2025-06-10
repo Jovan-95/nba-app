@@ -35,7 +35,7 @@ export async function getUsers() {
     const res = await fetch("http://localhost:3001/users");
     if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
     return data;
   } catch (err) {
     console.log(err);
