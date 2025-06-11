@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // http://localhost:3001/users
 // http://localhost:3001/teams
 // http://localhost:3001/players
@@ -75,6 +76,27 @@ export async function addFavTeam(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ favoritesTeams: updatedFavTeamsArr }),
+    });
+    if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
+    const data = await res.json();
+    console.log(data);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+// Patch HTTP method, remove elements from user object array
+export async function removePlayerFromFav(
+  userId: number,
+  updatedFavPlayersArr: number[]
+): Promise<void> {
+  try {
+    const res = await fetch(`http://localhost:3001/users/${userId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ favoritesPlayers: updatedFavPlayersArr }),
     });
     if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
     const data = await res.json();

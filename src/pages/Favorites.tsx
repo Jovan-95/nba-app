@@ -1,12 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getPlayers, getTeams, getUsers } from "../services";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  getPlayers,
+  getTeams,
+  getUsers,
+  removePlayerFromFav,
+} from "../services";
 import { useSelector } from "react-redux";
 import type { RootState } from "../redux/store";
-import type { User } from "../types";
+import type { Player, User } from "../types";
 
 function Favorites() {
-  // const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
   // Get users from services with reactQuery
   const {
@@ -38,6 +43,20 @@ function Favorites() {
     queryFn: getPlayers,
   });
 
+  // Patch method, remove fav player from user obj
+  const { mutate: removeFavPlayer } = useMutation({
+    mutationFn: async ({
+      userId,
+      updatedFavPlayersArr,
+    }: {
+      userId: number;
+      updatedFavPlayersArr: number[];
+    }) => await removePlayerFromFav(userId, updatedFavPlayersArr),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+    },
+  });
+
   // Find current logged user
   const loggedUser = useSelector((state: RootState) => state.auth.loggedInUser);
 
@@ -54,6 +73,31 @@ function Favorites() {
 
   // Find mathcing IDs for selected teams
   const favTeamsIds = currentUser.favoritesTeams;
+  const favoriteTeams = teams.filter((team) => favTeamsIds.includes(team.id));
+
+  // Find mathcing IDs for selected players
+  const favPlayersIds = currentUser.favoritesPlayers;
+  const favoritePlayers = players.filter((player) =>
+    favPlayersIds.includes(player.id)
+  );
+
+  // Remove player from fav
+  function handleRemovePlayerFromFav(player: Player) {
+    const updatedFavPlayersArr = currentUser.favoritesPlayers.filter(
+      (id: number) => Number(id) !== Number(player.id)
+    );
+
+    // console.log("Before:", currentUser.favoritesPlayers);
+    // console.log("Removing player with ID:", player.id);
+    // console.log("After:", updatedFavPlayersArr);
+
+    removeFavPlayer({
+      userId: currentUser.id,
+      updatedFavPlayersArr,
+    });
+  }
+
+  // Remove team from fav
 
   return (
     <div className="favorites-page">
@@ -71,29 +115,39 @@ function Favorites() {
           <option value="teams">Teams</option>
         </select>
       </div>
-
+      <h2>Players</h2>
       <div className="favorites-grid">
         {/* <!-- Example favorite item card --> */}
 
-        <div className="favorite-card">
-          <div className="favorite-info">
-            <h3 className="favorite-name">LeBron James</h3>
-            <p className="favorite-subinfo">Los Angeles Lakers</p>
-            <p className="favorite-subinfo">Position: SF</p>
+        {favoritePlayers.map((player) => (
+          <div key={player.id} className="favorite-card">
+            <div className="favorite-info">
+              <h3 className="favorite-name">{player.name}</h3>
+              <p className="favorite-subinfo">{player.team}</p>
+              <p className="favorite-subinfo">{player.position}</p>
+            </div>
+            <button
+              onClick={() => handleRemovePlayerFromFav(player)}
+              className="remove-btn"
+            >
+              Remove
+            </button>
           </div>
-          <button className="remove-btn">Remove</button>
-        </div>
+        ))}
+      </div>
 
-        <div className="favorite-card">
-          <div className="favorite-info">
-            <h3 className="favorite-name">Golden State Warriors</h3>
-            <p className="favorite-subinfo">Western Conference</p>
-            <p className="favorite-subinfo">Pacific Division</p>
+      <h2>Teams</h2>
+      <div className="favorites-grid">
+        {favoriteTeams.map((team) => (
+          <div key={team.id} className="favorite-card">
+            <div className="favorite-info">
+              <h3 className="favorite-name">{team.name}</h3>
+              <p className="favorite-subinfo">{team.conference}</p>
+              <p className="favorite-subinfo">{team.division}</p>
+            </div>
+            <button className="remove-btn">Remove</button>
           </div>
-          <button className="remove-btn">Remove</button>
-        </div>
-
-        {/* <!-- Add more favorite-card elements dynamically --> */}
+        ))}
       </div>
     </div>
   );
