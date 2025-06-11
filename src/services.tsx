@@ -106,6 +106,27 @@ export async function removePlayerFromFav(
   }
 }
 
+// Patch HTTP method, remove elements from user object array
+export async function removeTeamFromFav(
+  userId: number,
+  updatedFavTeamsArr: number[]
+): Promise<void> {
+  try {
+    const res = await fetch(`http://localhost:3001/users/${userId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ favoritesTeams: updatedFavTeamsArr }),
+    });
+    if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
+    const data = await res.json();
+    console.log(data);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 //// Teams
 // Get HTTP method
 export async function getTeams(): Promise<Team[]> {

@@ -5,10 +5,11 @@ import {
   getTeams,
   getUsers,
   removePlayerFromFav,
+  removeTeamFromFav,
 } from "../services";
 import { useSelector } from "react-redux";
 import type { RootState } from "../redux/store";
-import type { Player, User } from "../types";
+import type { Player, Team, User } from "../types";
 
 function Favorites() {
   const queryClient = useQueryClient();
@@ -57,6 +58,20 @@ function Favorites() {
     },
   });
 
+  // Patch method, remove fav player from user obj
+  const { mutate: removeFavTeam } = useMutation({
+    mutationFn: async ({
+      userId,
+      updatedFavTeamsArr,
+    }: {
+      userId: number;
+      updatedFavTeamsArr: number[];
+    }) => await removeTeamFromFav(userId, updatedFavTeamsArr),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+    },
+  });
+
   // Find current logged user
   const loggedUser = useSelector((state: RootState) => state.auth.loggedInUser);
 
@@ -87,10 +102,6 @@ function Favorites() {
       (id: number) => Number(id) !== Number(player.id)
     );
 
-    // console.log("Before:", currentUser.favoritesPlayers);
-    // console.log("Removing player with ID:", player.id);
-    // console.log("After:", updatedFavPlayersArr);
-
     removeFavPlayer({
       userId: currentUser.id,
       updatedFavPlayersArr,
@@ -98,7 +109,16 @@ function Favorites() {
   }
 
   // Remove team from fav
+  function handleRemoveTeamFromFav(team: Team) {
+    const updatedFavTeamsArr = currentUser.favoritesTeams.filter(
+      (id: number) => Number(id) !== Number(team.id)
+    );
 
+    removeFavTeam({
+      userId: currentUser.id,
+      updatedFavTeamsArr,
+    });
+  }
   return (
     <div className="favorites-page">
       <h1 className="favorites-title">Your Favorites</h1>
@@ -145,7 +165,12 @@ function Favorites() {
               <p className="favorite-subinfo">{team.conference}</p>
               <p className="favorite-subinfo">{team.division}</p>
             </div>
-            <button className="remove-btn">Remove</button>
+            <button
+              onClick={() => handleRemoveTeamFromFav(team)}
+              className="remove-btn"
+            >
+              Remove
+            </button>
           </div>
         ))}
       </div>
