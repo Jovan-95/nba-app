@@ -10,9 +10,12 @@ import {
 import { useSelector } from "react-redux";
 import type { RootState } from "../redux/store";
 import type { Player, Team, User } from "../types";
+import { useState } from "react";
 
 function Favorites() {
   const queryClient = useQueryClient();
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [selectedValue, setSelectedValue] = useState<string>("");
 
   // Get users from services with reactQuery
   const {
@@ -119,61 +122,84 @@ function Favorites() {
       updatedFavTeamsArr,
     });
   }
+
+  // Search players
+  const searchFavPlayers = favoritePlayers.filter((player: Player) =>
+    player.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  // Search teams
+  const searchFavTeams = favoriteTeams.filter((team: Team) =>
+    team.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="favorites-page">
       <h1 className="favorites-title">Your Favorites</h1>
 
       <div className="favorites-controls">
         <input
+          onChange={(e) => setSearchTerm(e.target.value)}
           type="text"
           className="favorites-search"
           placeholder="Search favorites..."
         />
-        <select className="favorites-filter">
+        <select
+          onChange={(e) => setSelectedValue(e.target.value)}
+          className="favorites-filter"
+        >
           <option value="">All</option>
           <option value="players">Players</option>
           <option value="teams">Teams</option>
         </select>
       </div>
       <h2>Players</h2>
-      <div className="favorites-grid">
-        {/* <!-- Example favorite item card --> */}
+      {selectedValue === "players" || selectedValue === "" ? (
+        <div className="favorites-grid">
+          {/* <!-- Example favorite item card --> */}
 
-        {favoritePlayers.map((player) => (
-          <div key={player.id} className="favorite-card">
-            <div className="favorite-info">
-              <h3 className="favorite-name">{player.name}</h3>
-              <p className="favorite-subinfo">{player.team}</p>
-              <p className="favorite-subinfo">{player.position}</p>
+          {searchFavPlayers.map((player) => (
+            <div key={player.id} className="favorite-card">
+              <div className="favorite-info">
+                <h3 className="favorite-name">{player.name}</h3>
+                <p className="favorite-subinfo">{player.team}</p>
+                <p className="favorite-subinfo">{player.position}</p>
+              </div>
+              <button
+                onClick={() => handleRemovePlayerFromFav(player)}
+                className="remove-btn"
+              >
+                Remove
+              </button>
             </div>
-            <button
-              onClick={() => handleRemovePlayerFromFav(player)}
-              className="remove-btn"
-            >
-              Remove
-            </button>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        ""
+      )}
 
       <h2>Teams</h2>
-      <div className="favorites-grid">
-        {favoriteTeams.map((team) => (
-          <div key={team.id} className="favorite-card">
-            <div className="favorite-info">
-              <h3 className="favorite-name">{team.name}</h3>
-              <p className="favorite-subinfo">{team.conference}</p>
-              <p className="favorite-subinfo">{team.division}</p>
+      {selectedValue === "teams" || selectedValue === "" ? (
+        <div className="favorites-grid">
+          {searchFavTeams.map((team) => (
+            <div key={team.id} className="favorite-card">
+              <div className="favorite-info">
+                <h3 className="favorite-name">{team.name}</h3>
+                <p className="favorite-subinfo">{team.conference}</p>
+                <p className="favorite-subinfo">{team.division}</p>
+              </div>
+              <button
+                onClick={() => handleRemoveTeamFromFav(team)}
+                className="remove-btn"
+              >
+                Remove
+              </button>
             </div>
-            <button
-              onClick={() => handleRemoveTeamFromFav(team)}
-              className="remove-btn"
-            >
-              Remove
-            </button>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

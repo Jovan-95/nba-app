@@ -1,24 +1,6 @@
 {
   "users": [
     {
-      "id": "1",
-      "username": "Admin User",
-      "email": "admin@nbaapp.com",
-      "password": "admin123",
-      "role": "admin",
-      "favoritesPlayers": [],
-      "favoritesTeams": []
-    },
-    {
-      "id": "2",
-      "username": "Regular User",
-      "email": "user@nbaapp.com",
-      "password": "user123",
-      "role": "user",
-      "favoritesPlayers": [],
-      "favoritesTeams": []
-    },
-    {
       "id": "1749459502655",
       "username": "Jovan",
       "email": "vuksanovicjovan@hotmail.com",
@@ -29,9 +11,17 @@
         "4"
       ],
       "favoritesTeams": [
-        "2",
         "16"
       ]
+    },
+    {
+      "id": 1750067147348,
+      "username": "smesko",
+      "email": "smesko@gmail.com",
+      "password": "111111",
+      "role": "user",
+      "favoritesPlayers": [],
+      "favoritesTeams": []
     }
   ],
   "teams": [
@@ -810,20 +800,39 @@
   ],
   "comments": [
     {
-      "id": "1",
-      "userId": 2,
-      "entityType": "game",
-      "entityId": 1,
-      "content": "Odlična utakmica!",
-      "timestamp": "2025-03-15T21:00:00Z"
+      "id": 1750068745744,
+      "userId": 1750067147348,
+      "entityId": "2",
+      "content": "fefsef",
+      "timestamp": "16/06/2025, 12:12:25"
     },
     {
-      "id": "2",
-      "userId": 2,
-      "entityType": "player",
-      "entityId": 1,
-      "content": "LeBron je GOAT.",
-      "timestamp": "2025-03-16T10:25:00Z"
+      "id": 1750068769176,
+      "userId": 1750067147348,
+      "entityId": "2",
+      "content": "test",
+      "timestamp": "16/06/2025, 12:12:49"
+    },
+    {
+      "id": 1750068774584,
+      "userId": 1750067147348,
+      "entityId": "1",
+      "content": "test",
+      "timestamp": "16/06/2025, 12:12:54"
+    },
+    {
+      "id": 1750068795576,
+      "userId": "1749459502655",
+      "entityId": "1",
+      "content": "test",
+      "timestamp": "16/06/2025, 12:13:15"
+    },
+    {
+      "id": 1750068800856,
+      "userId": "1749459502655",
+      "entityId": "2",
+      "content": "test",
+      "timestamp": "16/06/2025, 12:13:20"
     }
   ],
   "notifications": [

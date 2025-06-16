@@ -52,3 +52,13 @@ export type Player = {
   };
   photo: string;
 };
+
+// Comment
+export type Comment = {
+  id: number;
+  userId: number;
+  // entityType: string;
+  entityId: number;
+  content: string;
+  timestamp: string;
+};

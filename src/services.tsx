@@ -8,7 +8,7 @@
 // http://localhost:3001/comments
 // http://localhost:3001/notifications
 
-import type { Player, Team, User } from "./types";
+import type { Comment, Player, Team, User } from "./types";
 
 //// Users
 // Post HTTP method
@@ -154,5 +154,38 @@ export async function getPlayers(): Promise<Player[]> {
   } catch (err) {
     console.error("Error fetching teams:", err);
     throw err; // 👈 obavezno prosledi grešku
+  }
+}
+
+//// Comments
+// Get HTTP method
+export async function getComments(): Promise<Comment[]> {
+  try {
+    const res = await fetch("http://localhost:3001/comments");
+    if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.error("Error fetching teams:", err);
+    throw err; // 👈 obavezno prosledi grešku
+  }
+}
+
+// Post HTTP method
+export async function postComment(comment: Comment) {
+  try {
+    const res = await fetch("http://localhost:3001/comments", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(comment),
+    });
+    if (!res.ok) throw new Error(`${res.status}, ${res.statusText}`);
+    const data = await res.json();
+    // console.log(data);
+    return data;
+  } catch (err) {
+    console.log(err);
   }
 }
