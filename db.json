@@ -11,11 +11,12 @@
         "4"
       ],
       "favoritesTeams": [
-        "16"
+        "16",
+        "5"
       ]
     },
     {
-      "id": 1750067147348,
+      "id": "1750067147348",
       "username": "smesko",
       "email": "smesko@gmail.com",
       "password": "111111",
@@ -800,39 +801,67 @@
   ],
   "comments": [
     {
-      "id": 1750068745744,
+      "id": "1750068745744",
       "userId": 1750067147348,
       "entityId": "2",
       "content": "fefsef",
       "timestamp": "16/06/2025, 12:12:25"
     },
     {
-      "id": 1750068769176,
+      "id": "1750068769176",
       "userId": 1750067147348,
       "entityId": "2",
       "content": "test",
       "timestamp": "16/06/2025, 12:12:49"
     },
     {
-      "id": 1750068774584,
+      "id": "1750068774584",
       "userId": 1750067147348,
       "entityId": "1",
       "content": "test",
       "timestamp": "16/06/2025, 12:12:54"
     },
     {
-      "id": 1750068795576,
+      "id": "1750068795576",
       "userId": "1749459502655",
       "entityId": "1",
       "content": "test",
       "timestamp": "16/06/2025, 12:13:15"
     },
     {
-      "id": 1750068800856,
+      "id": "1750068800856",
       "userId": "1749459502655",
       "entityId": "2",
       "content": "test",
       "timestamp": "16/06/2025, 12:13:20"
+    },
+    {
+      "id": 1750233500494,
+      "userId": "1750067147348",
+      "entityId": "1",
+      "content": "123",
+      "timestamp": "18/06/2025, 09:58:20"
+    },
+    {
+      "id": 1750233521659,
+      "userId": "1750067147348",
+      "entityId": "3",
+      "content": "jokiic\n",
+      "timestamp": "18/06/2025, 09:58:41"
+    },
+    {
+      "id": 1750233545075,
+      "userId": "1749459502655",
+      "entityId": "3",
+      "content": "ewqwe",
+      "timestamp": "18/06/2025, 09:59:05"
+    },
+    {
+      "id": 1750233643003,
+      "userId": "1749459502655",
+      "entityId": "6",
+      "content": "hh",
+      "timestamp": "18/06/2025, 10:00:43"
     }
   ],
   "notifications": [

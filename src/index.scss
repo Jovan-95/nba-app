@@ -7,6 +7,8 @@
 @import "./scss/pages/singleTeam.scss";
 @import "./scss/pages/favorites.scss";
 @import "./scss/components/comments.scss";
+@import "./scss/pages/compare.scss";
+@import "./scss/components/modal.scss";
 
 *,
 *::before,
@@ -18,4 +20,12 @@ body {
 }
 html {
   scroll-behavior: smooth;
+}
+
+.d-none {
+  display: none;
+}
+
+.d-block {
+  display: block;
 }

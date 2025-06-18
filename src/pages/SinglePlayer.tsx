@@ -186,7 +186,7 @@ function SinglePlayer() {
 
               return (
                 <div key={comment.id} className="comment-card">
-                  <div className="comment-author">{author.username}</div>
+                  <div className="comment-author">{author?.username}</div>
                   <div className="comment-text">{comment.content}</div>
                   <div className="comment-date">{comment.timestamp}</div>
                 </div>
