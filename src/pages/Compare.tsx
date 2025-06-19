@@ -48,6 +48,12 @@ function Compare() {
     setSlotTwoModal(false);
   }
 
+  // Finding player one obj
+  const playerOne = players.find((p) => p.name === slotOne);
+
+  // Finding player two obj
+  const playerTwo = players.find((p) => p.name === slotTwo);
+
   return (
     <div className="compare-wrapper">
       <div className="compare-page">
@@ -56,20 +62,42 @@ function Compare() {
           <h2>Compare Players</h2>
           <div className="slots-container">
             {/* <!-- Slot 1 --> */}
-            <div
-              onClick={handleModalSlotOne}
-              className="compare-card empty-slot"
-            >
-              <p>Select a player</p>
-            </div>
+            {slotOne === "" ? (
+              <div
+                onClick={handleModalSlotOne}
+                className="compare-card empty-slot"
+              >
+                <p>Select a player</p>
+              </div>
+            ) : (
+              <div onClick={handleModalSlotOne} className="compare-card">
+                <div>Name: {playerOne?.name}</div>
+                <div>Height: {playerOne?.height}</div>
+                <div>Position: {playerOne?.position}</div>
+                <div>PPG: {playerOne?.stats.points}</div>
+                <div>RPG: {playerOne?.stats.rebounds}</div>
+                <div>APG: {playerOne?.stats.assists}</div>
+              </div>
+            )}
 
             {/* <!-- Slot 2 --> */}
-            <div
-              onClick={handleModalSlotTwo}
-              className="compare-card empty-slot"
-            >
-              <p>Select a player</p>
-            </div>
+            {slotTwo === "" ? (
+              <div
+                onClick={handleModalSlotTwo}
+                className="compare-card empty-slot"
+              >
+                <p>Select a player</p>
+              </div>
+            ) : (
+              <div onClick={handleModalSlotTwo} className="compare-card">
+                <div>Name: {playerTwo?.name}</div>
+                <div>Height: {playerTwo?.height}</div>
+                <div>Position: {playerTwo?.position}</div>
+                <div>PPG: {playerTwo?.stats.points}</div>
+                <div>RPG: {playerTwo?.stats.rebounds}</div>
+                <div>APG: {playerTwo?.stats.assists}</div>
+              </div>
+            )}
           </div>
         </div>
         {/* Slot ONE modal */}
