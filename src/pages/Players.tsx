@@ -99,6 +99,12 @@ function Players() {
     alert("Player added to favorites!");
   }
 
+  // Filter reset
+  function handleResetFilters() {
+    setSearchTerm("");
+    setSelectedFilter("");
+  }
+
   return (
     <div className="players-page">
       <h1 className="players-title">All NBA Players</h1>
@@ -106,6 +112,7 @@ function Players() {
       <div className="players-controls">
         <input
           onChange={(e) => setSearchTerm(e.target.value)}
+          value={searchTerm}
           type="text"
           placeholder="Search players..."
           className="players-search"
@@ -113,6 +120,7 @@ function Players() {
 
         <select
           onChange={(e) => setSelectedFilter(e.target.value)}
+          value={selectedFilter}
           className="players-filter"
         >
           {teams.map((team) => (
@@ -120,7 +128,7 @@ function Players() {
           ))}
         </select>
 
-        <button>Reset</button>
+        <button onClick={handleResetFilters}>Reset</button>
       </div>
 
       <div className="players-grid">

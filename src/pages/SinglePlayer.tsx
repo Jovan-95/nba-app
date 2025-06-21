@@ -85,7 +85,9 @@ function SinglePlayer() {
   const comments = commentsData.filter(
     (comment) => Number(comment.entityId) === Number(player.id)
   );
+  const sortComments = [...comments].reverse();
 
+  // Post comment
   function handleCommentPosting(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     // console.log("USER:", currentUser, "PLAYER:", player);
@@ -179,7 +181,7 @@ function SinglePlayer() {
           </form>
 
           <div className="comments-list">
-            {comments.map((comment) => {
+            {sortComments.map((comment) => {
               const author = users.find(
                 (user: User) => user.id === comment.userId
               );
