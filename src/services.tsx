@@ -127,6 +127,28 @@ export async function removeTeamFromFav(
   }
 }
 
+//// Patch HTTP method Edit user
+export async function editUser(userId: string, editedObj: Partial<User>) {
+  try {
+    const res = await fetch(`http://localhost:3001/users/${userId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(editedObj),
+    });
+    if (!res.ok) {
+      throw new Error(`${res.status}, ${res.statusText}`);
+    }
+    const data = await res.json();
+    console.log("PATCH response:", data); // ✅ keep this console log
+    return data;
+  } catch (err) {
+    console.error("PATCH error:", err);
+    throw err;
+  }
+}
+
 //// Teams
 // Get HTTP method
 export async function getTeams(): Promise<Team[]> {

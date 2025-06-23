@@ -2,12 +2,11 @@
   "users": [
     {
       "id": "1749459502655",
-      "username": "Jovan",
+      "username": "JovanV",
       "email": "vuksanovicjovan@hotmail.com",
       "password": "111111",
       "role": "user",
       "favoritesPlayers": [
-        "2",
         "4"
       ],
       "favoritesTeams": [
@@ -871,11 +870,18 @@
       "timestamp": "19/06/2025, 15:06:35"
     },
     {
-      "id": 1750495714728,
+      "id": "1750495714728",
       "userId": "1749459502655",
       "entityId": "1",
       "content": "sfesfse",
       "timestamp": "21/06/2025, 10:48:34"
+    },
+    {
+      "id": "1750674188708",
+      "userId": "1749459502655",
+      "entityId": "5",
+      "content": "rgrdegder",
+      "timestamp": "23/06/2025, 12:23:08"
     }
   ],
   "notifications": [

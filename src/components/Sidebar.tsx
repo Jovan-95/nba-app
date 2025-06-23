@@ -35,6 +35,12 @@ function Sidebar() {
         <NavLink to="/compare" className="sidebar-link">
           Compare
         </NavLink>
+        <NavLink to="/profile" className="sidebar-link">
+          Profile
+        </NavLink>
+        <NavLink to="/notifications" className="sidebar-link">
+          Notifications
+        </NavLink>
         <div style={{ marginTop: "100px" }}>
           <button onClick={handleLogout}>Logout</button>
         </div>
