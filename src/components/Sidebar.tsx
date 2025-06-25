@@ -26,12 +26,12 @@ function Sidebar() {
         <NavLink to="/favorites" className="sidebar-link">
           Favorites
         </NavLink>
-        <NavLink to="/results" className="sidebar-link">
+        {/* <NavLink to="/results" className="sidebar-link">
           Results
         </NavLink>
         <NavLink to="/schedule" className="sidebar-link">
           Schedule
-        </NavLink>
+        </NavLink> */}
         <NavLink to="/compare" className="sidebar-link">
           Compare
         </NavLink>

@@ -6,6 +6,7 @@ import type { Comment, Player, User } from "../types";
 import { useSelector } from "react-redux";
 import type { RootState } from "../redux/store";
 import { useState } from "react";
+import { showErrorToast } from "../components/Toast";
 
 function SinglePlayer() {
   const { id } = useParams();
@@ -51,7 +52,7 @@ function SinglePlayer() {
       queryClient.invalidateQueries({ queryKey: ["comments"] });
     },
     onError: (err) => {
-      alert("Registration failed!");
+      showErrorToast("Registration failed!");
     },
   });
 
@@ -96,7 +97,7 @@ function SinglePlayer() {
     const formattedDate = new Date(timestamp).toLocaleString("en-GB");
 
     if (commentContent === "") {
-      return alert("Your comment is empty!");
+      return showErrorToast("Your comment is empty!");
     }
 
     const newComment: Comment = {

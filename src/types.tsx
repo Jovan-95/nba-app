@@ -62,3 +62,12 @@ export type Comment = {
   content: string;
   timestamp: string;
 };
+
+// Notifications
+export type NotificationType = "success" | "error" | "info";
+
+export interface Notification {
+  message: string;
+  type: NotificationType;
+  timestamp: string;
+}

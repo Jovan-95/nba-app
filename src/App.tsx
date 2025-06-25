@@ -6,6 +6,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
 import SinglePlayer from "./pages/SinglePlayer";
 import SingleTeam from "./pages/SingleTeam";
+import { ToastContainer } from "react-toastify";
 
 const Register = lazy(() => import("./pages/Register"));
 const Login = lazy(() => import("./pages/Login"));
@@ -26,6 +27,8 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Suspense fallback={<h2>Loading...</h2>}>
+          <ToastContainer position="top-right" autoClose={3000} />
+
           <Routes>
             <Route
               path="/"

@@ -7,17 +7,29 @@
       "password": "111111",
       "role": "user",
       "favoritesPlayers": [
-        "4"
+        "4",
+        "8"
       ],
       "favoritesTeams": [
-        "16",
-        "5"
+        "5",
+        "14",
+        "15",
+        "16"
       ]
     },
     {
       "id": "1750067147348",
       "username": "smesko",
       "email": "smesko@gmail.com",
+      "password": "111111",
+      "role": "user",
+      "favoritesPlayers": [],
+      "favoritesTeams": []
+    },
+    {
+      "id": 1750859435612,
+      "username": "test",
+      "email": "test@gmail.com",
       "password": "111111",
       "role": "user",
       "favoritesPlayers": [],

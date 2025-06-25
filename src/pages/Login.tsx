@@ -6,6 +6,7 @@ import { getUsers } from "../services";
 import { useQuery } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { addLoggedUser } from "../redux/authSlice";
+import { showErrorToast, showSuccessToast } from "../components/Toast";
 
 function Login() {
   const [loggedInUser, setLoggedInUser] = useState<LoggedUserForm>({
@@ -33,12 +34,12 @@ function Login() {
     );
 
     if (!user) {
-      alert("Wrong credentials");
+      showErrorToast("Wrong credentials");
       return;
     }
 
     if (user) {
-      alert("Credentials are matching!");
+      showSuccessToast("Credentials are matching!");
       dispatch(addLoggedUser(user));
       navigate("/teams");
     }

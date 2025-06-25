@@ -6,6 +6,7 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import type { RootState } from "../redux/store";
+import { showInfoToast, showSuccessToast } from "../components/Toast";
 
 function Teams() {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -72,7 +73,7 @@ function Teams() {
 
     // Check for duplicates
     if (currentUser.favoritesTeams.includes(team.id)) {
-      alert("You already added this team to favorites!");
+      showInfoToast("You already added this team to favorites!");
       return;
     }
 
@@ -80,7 +81,7 @@ function Teams() {
       userId: currentUser.id,
       updatedFavTeamsArr,
     });
-    alert("Team added to favorites!");
+    showSuccessToast("Team added to favorites!");
   }
 
   return (

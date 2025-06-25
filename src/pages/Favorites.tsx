@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../redux/store";
 import type { Player, Team, User } from "../types";
 import { useState } from "react";
+import { showSuccessToast } from "../components/Toast";
 
 function Favorites() {
   const queryClient = useQueryClient();
@@ -109,6 +110,7 @@ function Favorites() {
       userId: currentUser.id,
       updatedFavPlayersArr,
     });
+    showSuccessToast("Player removed!");
   }
 
   // Remove team from fav
@@ -121,6 +123,7 @@ function Favorites() {
       userId: currentUser.id,
       updatedFavTeamsArr,
     });
+    showSuccessToast("Team removed!");
   }
 
   // Search players

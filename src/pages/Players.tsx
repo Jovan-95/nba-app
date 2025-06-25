@@ -5,6 +5,7 @@ import { useState } from "react";
 import type { Player, User } from "../types";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { showInfoToast, showSuccessToast } from "../components/Toast";
 
 function Players() {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -88,7 +89,7 @@ function Players() {
 
     // Check for duplicates
     if (currentUser.favoritesPlayers.includes(player.id)) {
-      alert("You already added this player to favorites!");
+      showInfoToast("You already added this player to favorites!");
       return;
     }
 
@@ -96,7 +97,7 @@ function Players() {
       userId: currentUser.id,
       updatedFavPlayersArr,
     });
-    alert("Player added to favorites!");
+    showSuccessToast("Player added to favorites!");
   }
 
   // Filter reset

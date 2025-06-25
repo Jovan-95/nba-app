@@ -4,6 +4,7 @@ import { useState } from "react";
 import { registerUser } from "../services";
 import { useNavigate } from "react-router-dom";
 import type { RegisterFormUser, User } from "../types";
+import { showErrorToast, showSuccessToast } from "../components/Toast";
 
 function Register() {
   const [userObj, setUserObj] = useState<RegisterFormUser>({
@@ -22,7 +23,7 @@ function Register() {
       queryClient.invalidateQueries({ queryKey: ["users"] });
     },
     onError: (err) => {
-      alert("Registration failed!");
+      showErrorToast("Registration failed!");
     },
   });
 
@@ -37,7 +38,7 @@ function Register() {
       userObj.password === "" ||
       userObj.confirmPassword === ""
     )
-      return alert("Fill all fields!");
+      return showErrorToast("Fill all fields!");
 
     const validateEmail = (email: string): boolean => {
       const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email regex
@@ -45,18 +46,18 @@ function Register() {
     };
 
     if (userObj.password.length < 6) {
-      return alert("Password is too short!");
+      return showErrorToast("Password is too short!");
     }
 
     if (userObj.password !== userObj.confirmPassword) {
-      return alert("Passwords are not matching!");
+      return showErrorToast("Passwords are not matching!");
     }
 
     if (!validateEmail(userObj.email)) {
-      return alert("Invalid Email!");
+      return showErrorToast("Invalid Email!");
     }
 
-    alert("You registration is successfull!");
+    showSuccessToast("You registration is successfull!");
 
     const newUser: User = {
       id: Date.now(),

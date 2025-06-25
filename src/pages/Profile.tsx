@@ -5,6 +5,7 @@ import type { RootState } from "../redux/store";
 import type { User } from "../types";
 import Modal from "../components/Modal";
 import { useState } from "react";
+import { showErrorToast, showSuccessToast } from "../components/Toast";
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 function Profile() {
@@ -66,11 +67,11 @@ function Profile() {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      return alert("Passwords do not match");
+      return showErrorToast("Passwords do not match");
     }
 
     if (!username || !email || !password) {
-      return alert("All fields are required");
+      return showErrorToast("All fields are required");
     }
 
     const editedObj = {
@@ -82,6 +83,7 @@ function Profile() {
     console.log("Sending PATCH for user:", currentUser.id, editedObj); // ✅ check this
 
     editUserFormFields({ userId: currentUser.id, editedObj });
+    showSuccessToast("Changes are saved!");
     setModal(false);
   }
 
